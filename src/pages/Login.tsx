@@ -71,15 +71,15 @@ export default function Login() {
         />
 
         <div className="relative flex items-center gap-2.5">
-          <div
+          {/* <div
             className="flex h-9 w-9 items-center justify-center rounded-lg text-white"
             style={{ background: 'var(--series-1)' }}
           >
             <svg width="16" height="16" viewBox="0 0 48 48" fill="none">
               <path d="M15 13v22M33 13v22M15 24h18" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
             </svg>
-          </div>
-          <span className="text-sm font-semibold text-[var(--text-primary)]">HRIS Admin</span>
+          </div> */}
+          <span className="text-sm font-semibold text-[var(--text-primary)]">HRIS</span>
         </div>
 
         <div className="relative max-w-md">
@@ -94,14 +94,14 @@ export default function Login() {
           <div className="mt-9 flex flex-col gap-5">
             {FEATURES.map((f) => (
               <div key={f.title} className="flex items-start gap-3">
-                <div
+                {/* <div
                   className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg"
                   style={{ background: 'var(--surface-1)', border: '1px solid var(--border)', color: f.color }}
                 >
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                     {f.icon}
                   </svg>
-                </div>
+                </div> */}
                 <div>
                   <div className="text-sm font-medium text-[var(--text-primary)]">{f.title}</div>
                   <div className="mt-0.5 text-xs text-[var(--text-muted)]">{f.desc}</div>
