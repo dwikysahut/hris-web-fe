@@ -49,7 +49,7 @@ export function Topbar({ title, subtitle }: { title: string; subtitle?: string }
               className="flex h-9 w-9 items-center justify-center rounded-full text-xs font-semibold text-white"
               style={{ background: 'var(--series-7)' }}
             >
-              DS
+              ADM
             </div>
           </button>
 
