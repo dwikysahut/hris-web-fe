@@ -19,7 +19,7 @@ export function exportEmployees(employees: Employee[]) {
     'Jenis Kelamin': e.gender,
     Lokasi: e.location,
     Atasan: e.manager,
-    'Salary Band': e.salaryBand,
+    'Rentang Gaji': e.salaryRange,
   }))
   const ws = XLSX.utils.json_to_sheet(rows)
   const wb = XLSX.utils.book_new()
@@ -125,7 +125,7 @@ export function downloadEmployeeTemplate() {
     {
       'Kode Karyawan': 'ADW-0141',
       Nama: 'Contoh Nama',
-      Email: 'contoh.nama@adacode.co.id',
+      Email: 'contoh.nama@kantor.co.id',
       Telepon: '+62 812-0000-0000',
       Departemen: 'Engineering',
       Posisi: 'Software Engineer',
@@ -135,7 +135,7 @@ export function downloadEmployeeTemplate() {
       'Jenis Kelamin': 'L',
       Lokasi: 'Jakarta HQ',
       Atasan: 'Budi Santoso',
-      'Salary Band': 'Band 2',
+      'Rentang Gaji': 'Rp 6.500.000 – Rp 8.500.000',
     },
   ]
   const ws = XLSX.utils.json_to_sheet(rows)

@@ -56,7 +56,6 @@ import MasterData from './pages/MasterData'
 import AuditLog from './pages/AuditLog'
 import Settings from './pages/Settings'
 
-import Recruitment from './pages/Recruitment'
 import Training from './pages/Training'
 import Documents from './pages/Documents'
 import Announcements from './pages/Announcements'
@@ -143,7 +142,6 @@ export default function App() {
           <Route path="/pengaturan" element={<Settings />} />
 
           {/* Lainnya */}
-          <Route path="/rekrutmen" element={<Recruitment />} />
           <Route path="/pelatihan" element={<Training />} />
           <Route path="/dokumen" element={<Documents />} />
           <Route path="/pengumuman" element={<Announcements />} />

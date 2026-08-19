@@ -65,7 +65,7 @@ export default function Payslip() {
           <div className="border-b pb-4" style={{ borderColor: 'var(--border)' }}>
             <div className="flex items-center justify-between">
               <div>
-                <h2 className="text-lg font-semibold text-[var(--text-primary)]">PT adaCODE Teknologi Indonesia</h2>
+                <h2 className="text-lg font-semibold text-[var(--text-primary)]">PT Office Teknologi Indonesia</h2>
                 <p className="text-xs text-[var(--text-muted)]">Slip Gaji Karyawan — Periode {record.period}</p>
               </div>
               <Badge tone={record.status === 'Dibayar' ? 'good' : 'warning'}>{record.status}</Badge>

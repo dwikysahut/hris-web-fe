@@ -111,7 +111,7 @@ export default function Login() {
           </div>
         </div>
 
-        <p className="relative text-xs text-[var(--text-muted)]">© 2023 HRIS</p>
+        <p className="relative text-xs text-[var(--text-muted)]">© 2024 HRIS</p>
       </div>
 
       <div className="flex flex-1 items-center justify-center px-4 py-10">
@@ -237,11 +237,11 @@ export default function Login() {
             </button>
 
             <p className="mt-4 rounded-lg px-3 py-2 text-center text-xs text-[var(--text-muted)]" style={{ background: 'var(--page-plane)' }}>
-              Mode demo — isi email &amp; password apa saja untuk masuk.
+              Mode demo — isi email &amp; password sembarang saja untuk masuk.
             </p>
           </form>
 
-          <p className="mt-6 text-center text-[11px] text-[var(--text-muted)] lg:hidden">© 2023 HRIS</p>
+          <p className="mt-6 text-center text-[11px] text-[var(--text-muted)] lg:hidden">© 2024 HRIS</p>
         </div>
       </div>
     </div>

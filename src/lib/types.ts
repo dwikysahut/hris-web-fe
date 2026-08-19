@@ -9,6 +9,13 @@ export type Department =
 
 export type EmployeeStatus = 'Aktif' | 'Cuti Panjang' | 'Nonaktif'
 
+export type SalaryRange =
+  | 'Rp 6.500.000 – Rp 8.500.000'
+  | 'Rp 10.000.000 – Rp 13.500.000'
+  | 'Rp 16.000.000 – Rp 20.000.000'
+  | 'Rp 24.000.000 – Rp 30.000.000'
+  | 'Rp 38.000.000 – Rp 46.000.000'
+
 export interface Employee {
   id: string
   employeeCode: string
@@ -23,7 +30,7 @@ export interface Employee {
   gender: 'L' | 'P'
   location: string
   manager: string
-  salaryBand: 'Band 1' | 'Band 2' | 'Band 3' | 'Band 4' | 'Band 5'
+  salaryRange: SalaryRange
   exitDate: string | null
   exitReason: 'Resign' | 'Kontrak Berakhir' | 'Pemutusan Hubungan Kerja' | 'Pensiun' | null
 }
@@ -128,31 +135,6 @@ export interface ExpenseClaim {
   description: string
   submittedAt: string
   status: ApprovalStatus
-}
-
-export interface JobOpening {
-  id: string
-  title: string
-  department: Department
-  location: string
-  employmentType: 'Full-time' | 'Kontrak' | 'Magang'
-  openings: number
-  status: 'Dibuka' | 'Ditutup'
-  postedAt: string
-  applicants: number
-}
-
-export type CandidateStage = 'Lamaran Masuk' | 'Screening' | 'Interview' | 'Penawaran' | 'Diterima' | 'Ditolak'
-
-export interface Candidate {
-  id: string
-  name: string
-  jobId: string
-  email: string
-  stage: CandidateStage
-  appliedAt: string
-  source: 'LinkedIn' | 'Jobstreet' | 'Referensi Karyawan' | 'Website Karir' | 'Glints'
-  score: number
 }
 
 export interface TrainingProgram {

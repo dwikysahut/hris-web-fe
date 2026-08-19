@@ -4,7 +4,7 @@ import { Card } from '../components/ui/Card'
 import { DataTable, type Column } from '../components/ui/DataTable'
 import { useData } from '../lib/dataStore'
 
-const TABS = ['Departemen', 'Lokasi', 'Jenis Cuti', 'Salary Band'] as const
+const TABS = ['Departemen', 'Lokasi', 'Jenis Cuti', 'Rentang Gaji'] as const
 
 const LEAVE_TYPES = [
   { name: 'Cuti Tahunan', quota: '12 hari/tahun', description: 'Cuti reguler karyawan tetap' },
@@ -15,12 +15,12 @@ const LEAVE_TYPES = [
   { name: 'Duka Cita', quota: '2 hari', description: 'Kedukaan keluarga inti' },
 ]
 
-const SALARY_BANDS = [
-  { band: 'Band 1', level: 'Staff', range: 'Rp 6.500.000 – Rp 8.500.000' },
-  { band: 'Band 2', level: 'Supervisor', range: 'Rp 10.000.000 – Rp 13.500.000' },
-  { band: 'Band 3', level: 'Manager', range: 'Rp 16.000.000 – Rp 20.000.000' },
-  { band: 'Band 4', level: 'Head', range: 'Rp 24.000.000 – Rp 30.000.000' },
-  { band: 'Band 5', level: 'Director', range: 'Rp 38.000.000 – Rp 46.000.000' },
+const SALARY_RANGES_BY_LEVEL = [
+  { level: 'Staff', range: 'Rp 6.500.000 – Rp 8.500.000' },
+  { level: 'Supervisor', range: 'Rp 10.000.000 – Rp 13.500.000' },
+  { level: 'Manager', range: 'Rp 16.000.000 – Rp 20.000.000' },
+  { level: 'Head', range: 'Rp 24.000.000 – Rp 30.000.000' },
+  { level: 'Director', range: 'Rp 38.000.000 – Rp 46.000.000' },
 ]
 
 export default function MasterData() {
@@ -52,9 +52,8 @@ export default function MasterData() {
     { key: 'quota', header: 'Kuota', render: (r) => r.quota },
     { key: 'description', header: 'Keterangan', render: (r) => r.description },
   ]
-  const bandColumns: Column<(typeof SALARY_BANDS)[number]>[] = [
-    { key: 'band', header: 'Salary Band', render: (r) => <span className="font-medium">{r.band}</span> },
-    { key: 'level', header: 'Level Terkait', render: (r) => r.level },
+  const rangeColumns: Column<(typeof SALARY_RANGES_BY_LEVEL)[number]>[] = [
+    { key: 'level', header: 'Level', render: (r) => <span className="font-medium">{r.level}</span> },
     { key: 'range', header: 'Rentang Gaji Pokok', render: (r) => r.range },
   ]
 
@@ -80,7 +79,7 @@ export default function MasterData() {
         {tab === 'Departemen' && <DataTable columns={deptColumns} rows={departments} pageSize={10} />}
         {tab === 'Lokasi' && <DataTable columns={locColumns} rows={locations} pageSize={10} />}
         {tab === 'Jenis Cuti' && <DataTable columns={leaveColumns} rows={LEAVE_TYPES} pageSize={10} />}
-        {tab === 'Salary Band' && <DataTable columns={bandColumns} rows={SALARY_BANDS} pageSize={10} />}
+        {tab === 'Rentang Gaji' && <DataTable columns={rangeColumns} rows={SALARY_RANGES_BY_LEVEL} pageSize={10} />}
       </Card>
     </AppShell>
   )

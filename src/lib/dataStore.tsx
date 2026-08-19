@@ -3,12 +3,10 @@ import {
   generateAnnouncements,
   generateAttendance,
   generateAuditLog,
-  generateCandidates,
   generateDocuments,
   generateEmployees,
   generateExpenseClaims,
   generateImportLog,
-  generateJobOpenings,
   generateKpi,
   generateLeaveRequests,
   generateOvertimeRequests,
@@ -26,13 +24,10 @@ import type {
   ApprovalStatus,
   AttendanceRecord,
   AuditLogEntry,
-  Candidate,
-  CandidateStage,
   Employee,
   EmployeeDocument,
   ExpenseClaim,
   ImportLogEntry,
-  JobOpening,
   KpiRecord,
   LeaveRequest,
   OvertimeRequest,
@@ -56,8 +51,6 @@ interface DataState {
   overtimeRequests: OvertimeRequest[]
   payroll: PayrollRecord[]
   expenseClaims: ExpenseClaim[]
-  jobOpenings: JobOpening[]
-  candidates: Candidate[]
   trainingPrograms: TrainingProgram[]
   trainingParticipants: TrainingParticipant[]
   documents: EmployeeDocument[]
@@ -89,13 +82,6 @@ interface DataState {
   addShiftAssignment: (row: ShiftAssignment) => void
   updateShiftAssignment: (id: string, patch: Partial<ShiftAssignment>) => void
   deleteShiftAssignment: (id: string) => void
-  setCandidateStage: (id: string, stage: CandidateStage) => void
-  addJobOpening: (row: JobOpening) => void
-  updateJobOpening: (id: string, patch: Partial<JobOpening>) => void
-  deleteJobOpening: (id: string) => void
-  addCandidate: (row: Candidate) => void
-  updateCandidate: (id: string, patch: Partial<Candidate>) => void
-  deleteCandidate: (id: string) => void
   addTrainingProgram: (row: TrainingProgram) => void
   updateTrainingProgram: (id: string, patch: Partial<TrainingProgram>) => void
   deleteTrainingProgram: (id: string) => void
@@ -141,8 +127,6 @@ const seedShiftAssignments = generateShiftAssignments(seedEmployees)
 const seedOvertimeRequests = generateOvertimeRequests(seedEmployees)
 const seedPayroll = generatePayroll(seedEmployees)
 const seedExpenseClaims = generateExpenseClaims(seedEmployees)
-const seedJobOpenings = generateJobOpenings()
-const seedCandidates = generateCandidates(seedJobOpenings)
 const seedTrainingPrograms = generateTrainingPrograms()
 const seedTrainingParticipants = generateTrainingParticipants(seedTrainingPrograms, seedEmployees)
 const seedDocuments = generateDocuments(seedEmployees)
@@ -163,8 +147,6 @@ export function DataProvider({ children }: { children: ReactNode }) {
   const [overtimeRequests, setOvertimeRequests] = useState<OvertimeRequest[]>(seedOvertimeRequests)
   const [payroll, setPayroll] = useState<PayrollRecord[]>(seedPayroll)
   const [expenseClaims, setExpenseClaims] = useState<ExpenseClaim[]>(seedExpenseClaims)
-  const [jobOpenings, setJobOpenings] = useState<JobOpening[]>(seedJobOpenings)
-  const [candidates, setCandidates] = useState<Candidate[]>(seedCandidates)
   const [trainingPrograms, setTrainingPrograms] = useState<TrainingProgram[]>(seedTrainingPrograms)
   const [trainingParticipants] = useState<TrainingParticipant[]>(seedTrainingParticipants)
   const [documents, setDocuments] = useState<EmployeeDocument[]>(seedDocuments)
@@ -187,8 +169,6 @@ export function DataProvider({ children }: { children: ReactNode }) {
     overtimeRequests,
     payroll,
     expenseClaims,
-    jobOpenings,
-    candidates,
     trainingPrograms,
     trainingParticipants,
     documents,
@@ -231,18 +211,6 @@ export function DataProvider({ children }: { children: ReactNode }) {
     updateShiftAssignment: (id, patch) =>
       setShiftAssignments((prev) => prev.map((r) => (r.id === id ? { ...r, ...patch } : r))),
     deleteShiftAssignment: (id) => setShiftAssignments((prev) => prev.filter((r) => r.id !== id)),
-
-    setCandidateStage: (id, stage) =>
-      setCandidates((prev) => prev.map((c) => (c.id === id ? { ...c, stage } : c))),
-    addCandidate: (row) => setCandidates((prev) => [row, ...prev]),
-    updateCandidate: (id, patch) =>
-      setCandidates((prev) => prev.map((c) => (c.id === id ? { ...c, ...patch } : c))),
-    deleteCandidate: (id) => setCandidates((prev) => prev.filter((c) => c.id !== id)),
-
-    addJobOpening: (row) => setJobOpenings((prev) => [row, ...prev]),
-    updateJobOpening: (id, patch) =>
-      setJobOpenings((prev) => prev.map((j) => (j.id === id ? { ...j, ...patch } : j))),
-    deleteJobOpening: (id) => setJobOpenings((prev) => prev.filter((j) => j.id !== id)),
 
     addTrainingProgram: (row) => setTrainingPrograms((prev) => [row, ...prev]),
     updateTrainingProgram: (id, patch) =>

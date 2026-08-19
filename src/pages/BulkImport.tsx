@@ -81,7 +81,7 @@ export default function BulkImport() {
           gender: (String(r['Jenis Kelamin'] ?? 'L') as Employee['gender']),
           location: String(r['Lokasi'] ?? 'Jakarta HQ'),
           manager: String(r['Atasan'] ?? '-'),
-          salaryBand: (String(r['Salary Band'] ?? 'Band 1') as Employee['salaryBand']),
+          salaryRange: (String(r['Rentang Gaji'] ?? 'Rp 6.500.000 – Rp 8.500.000') as Employee['salaryRange']),
           exitDate: null,
           exitReason: null,
         })

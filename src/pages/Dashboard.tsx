@@ -271,7 +271,6 @@ export default function Dashboard() {
           deltaLabel="dari total"
           positive={onLeaveToday < todayRecords.length * 0.05}
         />
-        {/* <StatCard label="Lowongan Aktif" value={openJobs.toLocaleString('id-ID')} deltaLabel="rekrutmen berjalan" /> */}
         <StatCard label={`Biaya Payroll ${currentPayrollPeriod ?? ''}`} value={formatCurrencyCompact(currentPayrollTotal)} deltaLabel="gaji bersih" />
       </div>
 

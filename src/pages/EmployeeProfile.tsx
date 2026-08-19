@@ -117,7 +117,7 @@ export default function EmployeeProfile() {
             <Field label="Lokasi" value={employee.location} />
             <Field label="Tanggal Bergabung" value={formatDate(employee.joinDate)} />
             <Field label="Atasan" value={employee.manager} />
-            <Field label="Salary Band" value={employee.salaryBand} />
+            <Field label="Rentang Gaji" value={employee.salaryRange} />
             <Field label="Jenis Kelamin" value={employee.gender === 'L' ? 'Laki-laki' : 'Perempuan'} />
           </div>
         </Card>

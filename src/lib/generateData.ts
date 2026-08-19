@@ -4,8 +4,6 @@ import type {
   AttendanceRecord,
   AttendanceStatus,
   AuditLogEntry,
-  Candidate,
-  CandidateStage,
   ClaimCategory,
   Department,
   DocumentCategory,
@@ -14,7 +12,6 @@ import type {
   ExpenseClaim,
   GoalStatus,
   ImportLogEntry,
-  JobOpening,
   KpiRecord,
   LeaveRequest,
   LeaveType,
@@ -55,7 +52,13 @@ const POSITIONS: Record<Department, string[]> = {
 
 const LEVELS: Employee['level'][] = ['Staff', 'Supervisor', 'Manager', 'Head', 'Director']
 const LOCATIONS = ['Jakarta HQ', 'Bandung Hub', 'Surabaya Hub', 'Remote']
-const SALARY_BANDS: Employee['salaryBand'][] = ['Band 1', 'Band 2', 'Band 3', 'Band 4', 'Band 5']
+export const SALARY_RANGES: Employee['salaryRange'][] = [
+  'Rp 6.500.000 – Rp 8.500.000',
+  'Rp 10.000.000 – Rp 13.500.000',
+  'Rp 16.000.000 – Rp 20.000.000',
+  'Rp 24.000.000 – Rp 30.000.000',
+  'Rp 38.000.000 – Rp 46.000.000',
+]
 
 function pad(n: number, len = 4) {
   return String(n).padStart(len, '0')
@@ -101,7 +104,7 @@ export function generateEmployees(count = 140): Employee[] {
       id: `EMP-${pad(i)}`,
       employeeCode: `ADW-${pad(i)}`,
       name,
-      email: `${firstName}.${lastName}`.toLowerCase().replace(/[^a-z.]/g, '') + '@adacode.co.id',
+      email: `${firstName}.${lastName}`.toLowerCase().replace(/[^a-z.]/g, '') + '@office.co.id',
       phone: faker.phone.number({ style: 'international' }),
       department,
       position,
@@ -111,7 +114,7 @@ export function generateEmployees(count = 140): Employee[] {
       gender,
       location: faker.helpers.arrayElement(LOCATIONS),
       manager: faker.helpers.arrayElement(managerPool),
-      salaryBand: SALARY_BANDS[Math.min(LEVELS.indexOf(level), SALARY_BANDS.length - 1)],
+      salaryRange: SALARY_RANGES[Math.min(LEVELS.indexOf(level), SALARY_RANGES.length - 1)],
       exitDate,
       exitReason,
     })
@@ -495,63 +498,6 @@ export function generateExpenseClaims(employees: Employee[], count = 60): Expens
     })
   }
   return claims.sort((a, b) => (a.submittedAt < b.submittedAt ? 1 : -1))
-}
-
-const JOB_TITLES: Record<Department, string[]> = {
-  Engineering: ['Backend Engineer', 'Frontend Engineer', 'Mobile Engineer', 'Data Analyst'],
-  Sales: ['Sales Executive', 'Key Account Manager'],
-  Marketing: ['Growth Marketing Specialist', 'Content Creator'],
-  'Human Resources': ['Talent Acquisition Specialist', 'HR Business Partner'],
-  Finance: ['Financial Controller', 'Tax Officer'],
-  Operations: ['Warehouse Supervisor', 'Operations Specialist'],
-  'Customer Support': ['Customer Support Officer', 'Technical Support'],
-}
-
-export function generateJobOpenings(count = 12): JobOpening[] {
-  const openings: JobOpening[] = []
-  for (let i = 1; i <= count; i++) {
-    const department = DEPARTMENTS[i % DEPARTMENTS.length]
-    const postedAt = faker.date.between({ from: '2026-06-01', to: '2026-08-10' })
-    openings.push({
-      id: `JOB-${pad(i, 4)}`,
-      title: faker.helpers.arrayElement(JOB_TITLES[department]),
-      department,
-      location: faker.helpers.arrayElement(LOCATIONS),
-      employmentType: faker.helpers.arrayElement(['Full-time', 'Full-time', 'Kontrak', 'Magang']),
-      openings: faker.number.int({ min: 1, max: 3 }),
-      status: faker.number.int({ min: 1, max: 100 }) > 25 ? 'Dibuka' : 'Ditutup',
-      postedAt: postedAt.toISOString().slice(0, 10),
-      applicants: 0,
-    })
-  }
-  return openings
-}
-
-const CANDIDATE_STAGES: CandidateStage[] = ['Lamaran Masuk', 'Screening', 'Interview', 'Penawaran', 'Diterima', 'Ditolak']
-
-export function generateCandidates(jobs: JobOpening[], countPerJob = 6): Candidate[] {
-  const candidates: Candidate[] = []
-  let counter = 1
-  for (const job of jobs) {
-    const n = faker.number.int({ min: 3, max: countPerJob })
-    for (let i = 0; i < n; i++) {
-      const gender = faker.number.int({ min: 0, max: 1 }) === 0 ? 'male' : 'female'
-      const name = `${faker.person.firstName(gender)} ${faker.person.lastName()}`
-      const appliedAt = faker.date.between({ from: job.postedAt, to: '2026-08-19' })
-      candidates.push({
-        id: `CAND-${pad(counter++, 5)}`,
-        name,
-        jobId: job.id,
-        email: name.toLowerCase().replace(/[^a-z ]/g, '').replace(/\s+/g, '.') + '@mail.com',
-        stage: faker.helpers.arrayElement(CANDIDATE_STAGES),
-        appliedAt: appliedAt.toISOString().slice(0, 10),
-        source: faker.helpers.arrayElement(['LinkedIn', 'Jobstreet', 'Referensi Karyawan', 'Website Karir', 'Glints']),
-        score: faker.number.int({ min: 55, max: 98 }),
-      })
-      job.applicants += 1
-    }
-  }
-  return candidates
 }
 
 export function generateTrainingPrograms(count = 9): TrainingProgram[] {

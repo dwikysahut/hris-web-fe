@@ -33,9 +33,9 @@ export default function Settings() {
       {tab === 'Profil Perusahaan' && (
         <Card title="Profil Perusahaan" subtitle="Informasi ini tampil pada slip gaji dan dokumen resmi">
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <Field label="Nama Perusahaan" value="PT adaCODE Teknologi Indonesia" />
+            <Field label="Nama Perusahaan" value="PT Office Teknologi Indonesia" />
             <Field label="NPWP Perusahaan" value="01.234.567.8-901.000" />
-            <Field label="Alamat" value="Jl. Sudirman No. 88, Jakarta Selatan, DKI Jakarta" />
+            <Field label="Alamat" value="DKI Jakarta" />
             <Field label="Industri" value="Teknologi Informasi" />
             <Field label="Jumlah Karyawan" value="140 orang" />
             <Field label="Tahun Berdiri" value="2018" />

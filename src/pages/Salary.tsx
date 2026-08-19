@@ -9,7 +9,7 @@ import { useData } from '../lib/dataStore'
 import { formatCurrency, initials } from '../lib/utils'
 import type { Employee } from '../lib/types'
 
-const BAND_ORDER: Employee['salaryBand'][] = ['Band 1', 'Band 2', 'Band 3', 'Band 4', 'Band 5']
+const LEVEL_ORDER: Employee['level'][] = ['Staff', 'Supervisor', 'Manager', 'Head', 'Director']
 
 export default function Salary() {
   const { employees, payroll } = useData()
@@ -29,10 +29,10 @@ export default function Salary() {
     return map
   }, [payroll, latestPeriod])
 
-  const byBand = useMemo(() => {
-    return BAND_ORDER.map((band) => {
-      const salaries = employees.filter((e) => e.salaryBand === band && e.status !== 'Nonaktif').map((e) => basicByEmployee.get(e.id) ?? 0).filter((v) => v > 0)
-      return { department: band, value: salaries.length ? Math.round(salaries.reduce((s, v) => s + v, 0) / salaries.length / 1000) : 0 }
+  const byLevel = useMemo(() => {
+    return LEVEL_ORDER.map((level) => {
+      const salaries = employees.filter((e) => e.level === level && e.status !== 'Nonaktif').map((e) => basicByEmployee.get(e.id) ?? 0).filter((v) => v > 0)
+      return { department: level, value: salaries.length ? Math.round(salaries.reduce((s, v) => s + v, 0) / salaries.length / 1000) : 0 }
     })
   }, [employees, basicByEmployee])
 
@@ -64,7 +64,7 @@ export default function Salary() {
       sortValue: (r) => r.employee.name,
     },
     { key: 'level', header: 'Level', render: (r) => r.employee.level },
-    { key: 'band', header: 'Salary Band', align: 'center', render: (r) => <Badge tone="neutral">{r.employee.salaryBand}</Badge>, sortValue: (r) => r.employee.salaryBand },
+    { key: 'range', header: 'Rentang Gaji', align: 'center', render: (r) => <Badge tone="neutral">{r.employee.salaryRange}</Badge>, sortValue: (r) => r.employee.salaryRange },
     {
       key: 'basicSalary',
       header: 'Gaji Pokok',
@@ -81,8 +81,8 @@ export default function Salary() {
         <StatCard label="Gaji Tertinggi" value={formatCurrency(Math.max(...allSalaries, 0))} />
         <StatCard label="Gaji Terendah" value={formatCurrency(Math.min(...allSalaries.filter((v) => v > 0), 0))} />
       </div>
-      <Card className="mt-4" title="Rata-rata Gaji Pokok per Salary Band" subtitle="Dalam ribuan Rupiah">
-        <DepartmentBarChart data={byBand} sortDescending={false} valueLabel="Ribuan Rupiah" />
+      <Card className="mt-4" title="Rata-rata Gaji Pokok per Level" subtitle="Dalam ribuan Rupiah">
+        <DepartmentBarChart data={byLevel} sortDescending={false} valueLabel="Ribuan Rupiah" />
       </Card>
       <Card className="mt-4">
         <input

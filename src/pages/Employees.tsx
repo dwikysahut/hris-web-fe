@@ -6,6 +6,7 @@ import { Badge, employeeStatusTone } from '../components/ui/Badge'
 import { DataTable, type Column } from '../components/ui/DataTable'
 import { Modal } from '../components/ui/Modal'
 import { makeEmployeeId, useData } from '../lib/dataStore'
+import { SALARY_RANGES } from '../lib/generateData'
 import { exportEmployees } from '../lib/excel'
 import { formatDate, initials } from '../lib/utils'
 import type { Department, Employee, EmployeeStatus } from '../lib/types'
@@ -20,7 +21,6 @@ const DEPARTMENTS: Department[] = [
   'Customer Support',
 ]
 const LEVELS: Employee['level'][] = ['Staff', 'Supervisor', 'Manager', 'Head', 'Director']
-const SALARY_BANDS: Employee['salaryBand'][] = ['Band 1', 'Band 2', 'Band 3', 'Band 4', 'Band 5']
 const STATUSES: EmployeeStatus[] = ['Aktif', 'Cuti Panjang', 'Nonaktif']
 const LOCATIONS = ['Jakarta HQ', 'Bandung Hub', 'Surabaya Hub', 'Remote']
 
@@ -36,7 +36,7 @@ const BLANK_FORM = {
   gender: 'L' as Employee['gender'],
   location: LOCATIONS[0],
   manager: '',
-  salaryBand: 'Band 1' as Employee['salaryBand'],
+  salaryRange: SALARY_RANGES[0],
 }
 
 export default function Employees() {
@@ -70,7 +70,7 @@ export default function Employees() {
       gender: emp.gender,
       location: emp.location,
       manager: emp.manager,
-      salaryBand: emp.salaryBand,
+      salaryRange: emp.salaryRange,
     })
     setFormOpen(true)
   }
@@ -344,15 +344,15 @@ export default function Employees() {
               style={{ borderColor: 'var(--border)' }}
             />
           </FormField>
-          <FormField label="Salary Band">
+          <FormField label="Rentang Gaji">
             <select
-              value={form.salaryBand}
-              onChange={(e) => setForm((f) => ({ ...f, salaryBand: e.target.value as Employee['salaryBand'] }))}
+              value={form.salaryRange}
+              onChange={(e) => setForm((f) => ({ ...f, salaryRange: e.target.value as Employee['salaryRange'] }))}
               className="w-full rounded-lg border px-3 py-2 text-sm"
               style={{ borderColor: 'var(--border)' }}
             >
-              {SALARY_BANDS.map((b) => (
-                <option key={b}>{b}</option>
+              {SALARY_RANGES.map((r) => (
+                <option key={r}>{r}</option>
               ))}
             </select>
           </FormField>

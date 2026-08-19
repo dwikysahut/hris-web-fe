@@ -100,7 +100,6 @@ export const NAV_GROUPS: NavGroup[] = [
   {
     label: 'Lainnya',
     items: [
-      { to: '/rekrutmen', label: 'Rekrutmen' },
       { to: '/pelatihan', label: 'Pelatihan' },
       { to: '/dokumen', label: 'Dokumen' },
       { to: '/pengumuman', label: 'Pengumuman' },

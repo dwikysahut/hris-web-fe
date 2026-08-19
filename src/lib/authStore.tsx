@@ -13,7 +13,7 @@ interface AuthState {
 }
 
 const DUMMY_USER: AuthUser = {
-  name: 'Dwiky Sahut',
+  name: 'Admin',
   email: 'admin@hris.local',
   role: 'HR Administrator',
 }
